@@ -51,5 +51,6 @@ jobs:
         host: ${{ secrets.SERVER_IP }}
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        source: app.jar
+        source: ./build/libs/app.jar
+        working-directory: backend
         target: /home/ubuntu/data/end.kr
