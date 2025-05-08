@@ -8,29 +8,29 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import kr.end.backend.common.BaseEntity;
+import kr.end.backend.global.BaseEntity;
 
 @Entity
 public class OAuthAccount extends BaseEntity {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "member_id", nullable = false)
-  private Member member;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
 
-  @Column(nullable = false)
-  private String provider;
+    @Column(nullable = false)
+    private String provider;
 
-  @Column(nullable = false)
-  private String providerUserId;
+    @Column(nullable = false)
+    private String providerUserId;
 
-  @Column
-  private String accessToken;
+    @Column
+    private String accessToken;
 
-  @Column
-  private String refreshToken;
+    @Column
+    private String refreshToken;
 
 }

@@ -1,4 +1,4 @@
-package kr.end.backend.common;
+package kr.end.backend.global;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
@@ -17,18 +17,18 @@ import org.springframework.format.annotation.DateTimeFormat;
 public abstract class BaseEntity {
 
 
-  @CreatedDate
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-  @Column(updatable = false, nullable = false)
-  private LocalDateTime createdDate;
+    @CreatedDate
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @Column(updatable = false, nullable = false)
+    private LocalDateTime createdDate;
 
-  @LastModifiedDate
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-  private LocalDateTime updatedDate;
+    @LastModifiedDate
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime updatedDate;
 
-  @PrePersist
-  public void prePersist() {
-    this.createdDate = LocalDateTime.now();
-    this.updatedDate = null;
-  }
+    @PrePersist
+    public void prePersist() {
+        this.createdDate = LocalDateTime.now();
+        this.updatedDate = null;
+    }
 }

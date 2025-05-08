@@ -1,4 +1,4 @@
-package kr.end.backend.common.config;
+package kr.end.backend.global.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,11 +18,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-  @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-    http.authorizeHttpRequests((auth) -> auth
-        .anyRequest().permitAll()
+        http.authorizeHttpRequests((auth) -> auth
+                .anyRequest().permitAll()
 
 //        .requestMatchers("/swagger", "/swagger-ui.html", "/swagger-ui/**",
 //            "/api-docs ", "/api-docs/**", "/v3/api-docs/**").permitAll()
@@ -30,13 +30,13 @@ public class SecurityConfig {
 //        .requestMatchers("/api/members", "/api/signup", "/login", "/api/reissue").permitAll()
 //
 //        .anyRequest().authenticated()
-    );
+        );
 
-    http.csrf(AbstractHttpConfigurer::disable);
+        http.csrf(AbstractHttpConfigurer::disable);
 
-    http.formLogin(AbstractHttpConfigurer::disable);
+        http.formLogin(AbstractHttpConfigurer::disable);
 
-    http.httpBasic(AbstractHttpConfigurer::disable);
+        http.httpBasic(AbstractHttpConfigurer::disable);
 
 //    http.addFilterBefore(new JwtFilter(jwtTokenProvider, redisUtil), LoginFilter.class);
 //    http.addFilterBefore(filterExceptionHandler, JwtFilter.class);
@@ -46,19 +46,19 @@ public class SecurityConfig {
 //        new LoginFilter(authenticationManager(authenticationConfiguration), jwtTokenProvider, redisUtil),
 //        UsernamePasswordAuthenticationFilter.class);
 
-    http.sessionManagement(
-        (session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http.sessionManagement(
+            (session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
 //    http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
 //    http.logout(logout -> logout.logoutUrl("/logout")
 //        .addLogoutHandler(customLogoutHandler));
 
-    return http.build();
-  }
+        return http.build();
+    }
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }
