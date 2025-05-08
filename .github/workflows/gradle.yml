@@ -40,7 +40,9 @@ jobs:
       working-directory: backend
 
     - name: 빌드된 파일 이름 변경하기
-      run: mv ./build/libs/backend-*.jar ./app.jar
+      run: |
+        FILE=$(ls backend/build/libs/backend-*.jar | grep -v plain | head -n 1)
+        mv "$FILE" ./app.jar
       working-directory: backend
 
     - name: SCP로 EC2에 빌드된 파일 전송하기
