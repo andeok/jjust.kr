@@ -30,7 +30,7 @@ public class MemberService {
     public MemberResponse signupMember(SignupRequest request) {
 
         duplicateEmail(request.email());
-//        duplicateNickname(request.nickname());
+        duplicateNickname(request.nickname());
 
         String encode = generatePassword(request.password());
         Member member = request.toEntity(request, encode);
