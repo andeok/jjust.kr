@@ -30,7 +30,7 @@ public class MemberService {
     public MemberResponse signupMember(SignupRequest request) {
 
         duplicateEmail(request.email());
-        duplicateNickname(request.nickname());
+//        duplicateNickname(request.nickname());
 
         String encode = generatePassword(request.password());
         Member member = request.toEntity(request, encode);
@@ -39,12 +39,12 @@ public class MemberService {
         return new MemberResponse(result);
     }
 
-    private void duplicateNickname(String nickname) {
-        boolean exists = memberRepository.findByNickname(nickname).isPresent();
-        if (exists) {
-            throw new EndException(ErrorCode.ALREADY_REGISTERED_EMAIL);
-        }
-    }
+//    private void duplicateNickname(String nickname) {
+//        boolean exists = memberRepository.findByNickname(nickname).isPresent();
+//        if (exists) {
+//            throw new EndException(ErrorCode.ALREADY_REGISTERED_EMAIL);
+//        }
+//    }
 
     // 이메일 중복 검사
     private void duplicateEmail(String email) {
