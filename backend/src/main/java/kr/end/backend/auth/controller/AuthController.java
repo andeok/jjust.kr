@@ -24,4 +24,5 @@ public class AuthController {
     public ResponseEntity<MemberResponse> signup(@RequestBody SignupRequest request) {
         return ResponseEntity.ok(memberService.signupMember(request));
     }
+
 }
