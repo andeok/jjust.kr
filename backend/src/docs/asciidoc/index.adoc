@@ -1,0 +1,29 @@
+= 회원 API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+:operation-curl-request-title: 요청 예시
+:operation-http-response-title: 응답 예시
+
+[[member-api]]
+== 회원 API
+
+[[member-signup]]
+=== 회원 가입
+
+회원 가입을 위한 API입니다.
+
+==== HTTP Request
+include::{snippets}/member-signup/http-request.adoc[]
+
+==== HTTP Response
+include::{snippets}/member-signup/http-response.adoc[]
+
+==== 요청 필드
+include::{snippets}/member-signup/request-fields.adoc[]
+
+==== 응답 필드
+include::{snippets}/member-signup/response-fields.adoc[]
