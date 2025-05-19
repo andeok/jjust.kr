@@ -38,7 +38,7 @@ public class Trade extends BaseEntity {
 
     private Integer price;
 
-    private LocalDate date;
+    private LocalDate tradeDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id", unique = true)

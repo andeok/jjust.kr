@@ -12,7 +12,7 @@ public record TradeResponse(
         Long parentId = (save.getParent() != null) ? save.getParent().getId() : null;
 
         return new TradeResponse(save.getId(), save.getTradeType(), save.getItemName(), save.getMemo(), save.getPrice(),
-            save.getDate(), parentId);
+            save.getTradeDate(), parentId);
     }
 
 

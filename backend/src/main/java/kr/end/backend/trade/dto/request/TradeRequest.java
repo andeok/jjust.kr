@@ -20,7 +20,7 @@ public record TradeRequest(
             .itemName(itemName())
             .memo(memo())
             .price(price())
-            .date(tradeDate())
+            .tradeDate(tradeDate())
             .parent(trade)
             .member(member)
             .build();
