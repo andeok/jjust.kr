@@ -17,6 +17,13 @@ public record SignupRequest(
     String nickname
 ) {
 
+  /**
+   * 회원가입 요청 정보를 기반으로 암호화된 비밀번호를 포함한 Member 엔티티로 변환합니다.
+   *
+   * @param request 회원가입 요청 데이터
+   * @param encode 암호화된 비밀번호 문자열
+   * @return 변환된 Member 엔티티
+   */
   public Member toEntity(SignupRequest request, String encode) {
     return Member.builder()
         .email(request.email())
