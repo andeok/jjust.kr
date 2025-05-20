@@ -1,9 +1,10 @@
 package kr.end.backend.auth.controller;
 
 
+import jakarta.validation.Valid;
 import kr.end.backend.auth.dto.request.SignupRequest;
+import kr.end.backend.auth.service.AuthService;
 import kr.end.backend.member.dto.response.MemberResponse;
-import kr.end.backend.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -14,15 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final MemberService memberService;
+    private final AuthService authService;
 
-    @PostMapping
-    public ResponseEntity<MemberResponse> signup(@RequestBody SignupRequest request) {
-        return ResponseEntity.ok(memberService.signupMember(request));
+    @PostMapping("/signup")
+    public ResponseEntity<MemberResponse> signup(@Valid @RequestBody SignupRequest request) {
+        return ResponseEntity.ok(authService.signupMember(request));
     }
 
 }
