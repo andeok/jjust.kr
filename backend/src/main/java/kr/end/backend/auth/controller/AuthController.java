@@ -21,6 +21,12 @@ public class AuthController {
 
     private final AuthService authService;
 
+    /**
+     * 회원 가입 요청을 처리하고 성공 시 회원 정보를 반환합니다.
+     *
+     * @param request 유효성 검사가 적용된 회원 가입 요청 데이터
+     * @return 생성된 회원 정보가 포함된 HTTP 200 OK 응답
+     */
     @PostMapping("/signup")
     public ResponseEntity<MemberResponse> signup(@Valid @RequestBody SignupRequest request) {
         return ResponseEntity.ok(authService.signupMember(request));
