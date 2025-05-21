@@ -4,3 +4,8 @@ server:
 spring:
   profiles:
     active: local
+
+jwt:
+  secret-key: 7J206rKD7J2AIOyVoeyEuOyKpCDthqDtgbDsnYQg67Kg7J207IqkNjTroZwg67OA6rK97ZWcIOuNsOydtO2EsOyeheuLiOuLpC4=
+  accessToken-expiration-millis: 1_800_000
+  refreshToken-expiration-millis: 604_800_000
