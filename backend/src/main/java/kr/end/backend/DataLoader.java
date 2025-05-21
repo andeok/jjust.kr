@@ -2,6 +2,7 @@ package kr.end.backend;
 
 import kr.end.backend.auth.dto.request.SignupRequest;
 import kr.end.backend.auth.service.AuthService;
+import kr.end.backend.member.domain.RoleType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
