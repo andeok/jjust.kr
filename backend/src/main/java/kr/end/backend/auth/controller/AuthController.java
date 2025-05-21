@@ -2,6 +2,7 @@ package kr.end.backend.auth.controller;
 
 
 import jakarta.validation.Valid;
+import kr.end.backend.auth.dto.request.LoginRequest;
 import kr.end.backend.auth.dto.request.SignupRequest;
 import kr.end.backend.auth.service.AuthService;
 import kr.end.backend.member.dto.response.MemberResponse;
