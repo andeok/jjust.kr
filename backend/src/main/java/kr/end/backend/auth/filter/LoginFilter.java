@@ -30,7 +30,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Slf4j
 public class LoginFilter extends AbstractAuthenticationProcessingFilter {
 
-  private static final String LOGIN_REQUEST_URL = "/api/v1/login";
+  private static final String LOGIN_REQUEST_URL = "/v1/login";
   private static final String LOGIN_REQUEST_HTTP_METHOD = "POST";
   private static final String LOGIN_REQUEST_CONTENT_TYPE = "application/json";
   private static final AntPathRequestMatcher DEFAULT_LOGIN_PATH_REQUEST_MATCHER =
