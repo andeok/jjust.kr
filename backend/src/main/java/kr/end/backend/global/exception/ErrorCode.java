@@ -44,11 +44,14 @@ public enum ErrorCode {
     INVALID_SOURCE_TYPE(BAD_REQUEST, "올바르지 않은 소스 타입입니다."),
     CANNOT_LOGOUT(BAD_REQUEST, "이미 로그아웃 상태입니다."),
     CACHE_VALUE_COOKIE_MISMATCH(BAD_REQUEST, "쿠키에 저장된 토큰 값과 캐시에 저장된 토큰 값이 일치하지 않습니다."),
+    AUTHENTICATION_TOKEN_TYPE_MISMATCH(BAD_REQUEST, "토큰 타입이 올바르지 않습니다"),
 
     // 401
     MISMATCHED_EMAIL_OR_PASSWORD(UNAUTHORIZED, "이메일 또는 비밀번호가 잘못되었습니다."),
     AUTHENTICATION_REQUIRED(UNAUTHORIZED, "인증이 필요합니다."),
     EXPIRED_JWT_TOKEN(UNAUTHORIZED, "만료된 토큰 입니다."),
+    INVALID_ACCESS_TOKEN(UNAUTHORIZED, "액세스 토큰이 존재하지 않습니다. 액세스 토큰을 발급해주세요."),
+    INVALID_REFRESH_TOKEN(UNAUTHORIZED, "리프레시 토큰이 존재하지 않습니다. 다시 로그인해주세요."),
     INVALID_JWT_TOKEN(UNAUTHORIZED, "유효하지 않은 토큰입니다"),
     BLACKLIST_JWT_TOKEN(UNAUTHORIZED, "블랙리스트에 저장 된 토큰입니다."),
     MISMATCHED_REFRESH_TOKEN(UNAUTHORIZED, "Refresh Token 값이 잘못 되었습니다.."),
