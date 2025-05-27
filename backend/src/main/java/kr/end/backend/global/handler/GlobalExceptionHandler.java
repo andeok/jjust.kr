@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
   @ExceptionHandler(JJUSTException.class)
-  public ResponseEntity<ErrorResponse> handleBalanceTalkException(JJUSTException e,
+  public ResponseEntity<ErrorResponse> handleJJUSTException(JJUSTException e,
       HttpServletRequest request) {
 
     ErrorResponse response = new ErrorResponse(
