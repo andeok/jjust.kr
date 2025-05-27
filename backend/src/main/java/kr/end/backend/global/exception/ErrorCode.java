@@ -87,6 +87,7 @@ public enum ErrorCode {
   NOT_FOUND_NOTIFICATION(NOT_FOUND, "존재하지 않는 알림입니다."),
   NOT_FOUND_GAME_OPTION(NOT_FOUND, "게임 선택지가 존재하지 않습니다."),
   NOT_FOUND_CACHE_VALUE(NOT_FOUND, "캐시 값이 존재하지 않습니다."),
+  NOT_FOUND_ITEM(NOT_FOUND, "아이템이 존재하지 않습니다."),
 
   // 409
   ALREADY_VOTE(CONFLICT, "이미 투표한 게시글입니다."),

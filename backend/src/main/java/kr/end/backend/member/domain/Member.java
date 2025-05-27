@@ -7,8 +7,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import java.util.List;
 import kr.end.backend.global.BaseEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -41,6 +39,5 @@ public class Member extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private RoleType role;
-
 
 }
