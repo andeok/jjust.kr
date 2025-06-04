@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import kr.end.backend.global.BaseEntity;
 import kr.end.backend.member.domain.Member;
 import lombok.AccessLevel;
@@ -61,4 +62,38 @@ public class Item extends BaseEntity {
   }
 
 
+  public Integer getProfit() {
+    if (this.salePrice == null || this.purchasePrice == null) {
+      return null;
+    }
+    return this.salePrice - this.purchasePrice;
+  }
+
+  public Long getPeriodUse() {
+    if (this.saleDate == null || this.purchaseDate == null) {
+      return null;
+    }
+    return ChronoUnit.DAYS.between(this.purchaseDate, this.saleDate);
+  }
+
+  public Integer getDailyCost() {
+    if (this.saleDate == null) {
+      return null;
+    }
+    Integer profit = this.getProfit();
+    if (profit == null) {
+      return null;
+    }
+
+    Long period = this.getPeriodUse();
+    if (period == null) {
+      return null;
+    }
+
+    if (period == 0) {
+      period = 1L; // 당일 구매/판매의 경우 1일로 계산
+    }
+
+    return Math.toIntExact(profit / period);
+  }
 }
