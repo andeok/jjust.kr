@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/members")
 @RequiredArgsConstructor
-public class MemberController {
+public class MemberController implements MemberSwaggerController {
 
   private final MemberService memberService;
 
