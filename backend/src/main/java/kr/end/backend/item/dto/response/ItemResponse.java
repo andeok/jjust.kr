@@ -11,8 +11,10 @@ public record ItemResponse(
     LocalDate purchaseDate,
     Integer salePrice,
     LocalDate saleDate,
-    String memo
-
+    String memo,
+    Integer profit,
+    Long periodUse,
+    Integer dailyCost
 ) {
 
 
@@ -24,7 +26,11 @@ public record ItemResponse(
         item.getPurchaseDate(),
         item.getSalePrice(),
         item.getSaleDate(),
-        item.getMemo());
+        item.getMemo(),
+        item.getProfit(),
+        item.getPeriodUse(),
+        item.getDailyCost()
+    );
   }
 }
 

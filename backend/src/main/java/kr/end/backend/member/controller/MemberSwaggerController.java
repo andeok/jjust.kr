@@ -10,7 +10,7 @@ import kr.end.backend.auth.dto.response.MemberResponse;
 import kr.end.backend.member.domain.Member;
 import org.springframework.http.ResponseEntity;
 
-@Tag(name = "MyInfo API")
+@Tag(name = "내정보 API")
 public interface MemberSwaggerController {
 
   @Operation(summary = "내 정보 조회", responses = {

@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/items")
 @RequiredArgsConstructor
-public class ItemController {
+public class ItemController implements ItemSwaggerController {
 
   private final ItemService itemService;
 
