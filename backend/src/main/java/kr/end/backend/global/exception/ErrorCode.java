@@ -60,7 +60,7 @@ public enum ErrorCode {
   FORBIDDEN_COMMENT_MODIFY(FORBIDDEN, "해당 댓글은 수정 권한이 없습니다."),
   FORBIDDEN_COMMENT_DELETE(FORBIDDEN, "해당 댓글은 삭제 권한이 없습니다."),
   FORBIDDEN_MEMBER_DELETE(FORBIDDEN, "사용자 탈퇴 권한이 없습니다."),
-  FORBIDDEN_LIKE_OWN_COMMENT(FORBIDDEN, "본인 댓글에는 좋아요를 누를 수 없습니다."),
+  FORBIDDEN_ITEM_NOT_OWNED(FORBIDDEN, "해당 아이템에 대한 권한이 없습니다."),
   FORBIDDEN_MAIN_TAG_CREATE(FORBIDDEN, "메인 태그 작성 권한이 없습니다."),
   FORBIDDEN_PICK_O_FRIENDS_OPERATION(FORBIDDEN, "PICK-O 프렌즈 작업을 수행할 권한이 없습니다."),
 
