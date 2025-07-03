@@ -17,8 +17,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder
 public class Member extends BaseEntity {
 
     @Id
@@ -40,4 +38,11 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private RoleType role;
 
+    public Member(String email, String nickname, String password, String profileImageUrl, RoleType role) {
+        this.email = email;
+        this.nickname = nickname;
+        this.password = password;
+        this.profileImageUrl = profileImageUrl;
+        this.role = role;
+    }
 }

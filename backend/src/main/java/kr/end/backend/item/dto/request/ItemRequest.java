@@ -10,7 +10,7 @@ import kr.end.backend.member.domain.Member;
 public record ItemRequest(
     String itemName,
     Condition condition,
-    @Valid @NotNull(message = "판매 또는 구매를 입력하세요.") List<TransactionRequest> transaction
+    @Valid @NotNull(message = "판매 또는 구매를 입력하세요.") List<TransactionRequest> transactions
 ) {
 
 
