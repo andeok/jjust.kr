@@ -1,5 +1,6 @@
 package kr.end.backend.item.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -11,8 +12,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import kr.end.backend.global.BaseEntity;
-import kr.end.backend.item.dto.request.TransactionRequest;
-import kr.end.backend.member.domain.Member;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,26 +29,32 @@ public class Transaction extends BaseEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private int quantity;
-
-  private int price;
-
-  @Enumerated(EnumType.STRING)
-  private TransactionType transactionType;
-
-  private LocalDateTime transactionDate;
-
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "transaction_item_id")
   private TransactionItem transactionItem;
 
-  public Transaction(TransactionItem item, TransactionRequest transaction) {
-    this.quantity = transaction.quantity();
-    this.price = transaction.price();
-    this.transactionType = transaction.transactionType();
-    this.transactionDate = transaction.transactionDate();
-    this.transactionItem = item;
+  @Enumerated(EnumType.STRING)
+  private TransactionType transactionType;
+
+  private Integer quantity;
+
+  private Integer price;
+
+  private LocalDateTime transactionDate;
+
+  public Transaction(TransactionItem transactionItem, TransactionType transactionType,
+      Integer quantity, Integer price, LocalDateTime transactionDate) {
+    this.transactionItem = transactionItem;
+    this.transactionType = transactionType;
+    this.quantity = quantity;
+    this.price = price;
+    this.transactionDate = transactionDate;
   }
 
 
+  public void change(Transaction transaction) {
+    this.quantity = transaction.quantity;
+    this.price = transaction.price;
+    this.transactionDate = transaction.transactionDate;
+  }
 }

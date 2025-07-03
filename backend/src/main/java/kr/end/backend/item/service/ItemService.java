@@ -2,6 +2,7 @@ package kr.end.backend.item.service;
 
 import kr.end.backend.global.exception.ErrorCode;
 import kr.end.backend.global.exception.JJUSTException;
+import kr.end.backend.item.domain.Transaction;
 import kr.end.backend.item.domain.TransactionItem;
 import kr.end.backend.item.repository.TransactionItemRepository;
 import kr.end.backend.item.repository.TransactionRepository;
@@ -20,10 +21,15 @@ public class ItemService {
   private final TransactionRepository transactionRepository;
   private final TransactionItemRepository itemRepository;
 
-  public TransactionItem readTransaction(Member member, Long id) {
+  public TransactionItem readTransactionItem(Member member, Long id) {
     TransactionItem transactionItem = itemRepository.findById(id).orElse(null);
-    validateItemOwnership(member, transactionItem);
+//    validateItemOwnership(member, transactionItem);
     return transactionItem;
+  }
+
+  public Transaction readTransaction(Long id) {
+    Transaction transaction = transactionRepository.findById(id).orElse(null);
+    return transaction;
   }
 
   private void validateItemOwnership(Member member, TransactionItem transactionItem) {

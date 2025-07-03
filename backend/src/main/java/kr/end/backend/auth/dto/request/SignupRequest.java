@@ -19,11 +19,8 @@ public record SignupRequest(
 ) {
 
   public Member toEntity(SignupRequest request, String encode) {
-    return Member.builder()
-        .email(request.email())
-        .password(encode)
-        .nickname(request.nickname())
-        .role(RoleType.ROLE_USER)
-        .build();
+    return
+        new Member(request.email, request.nickname, encode, "", RoleType.ROLE_USER);
   }
+
 }
