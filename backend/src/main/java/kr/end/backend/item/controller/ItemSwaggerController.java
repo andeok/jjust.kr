@@ -7,8 +7,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.time.LocalDate;
-import java.util.List;
 import kr.end.backend.item.dto.request.ItemRequest;
+import kr.end.backend.item.dto.response.ItemListResponse;
 import kr.end.backend.item.dto.response.ItemResponse;
 import kr.end.backend.member.domain.Member;
 import org.springframework.http.ResponseEntity;
@@ -33,8 +33,9 @@ public interface ItemSwaggerController {
 
   @Operation(summary = "내 물품 전체 조회", responses = {
       @ApiResponse(responseCode = "200", description = "물품 조회 성공",
-          content = @Content(schema = @Schema(implementation = ItemResponse[].class)))})
-  ResponseEntity<List<ItemResponse>> getItems(@Parameter(hidden = true) Member member, LocalDate searchDate);
+          content = @Content(schema = @Schema(implementation = ItemListResponse[].class)))})
+  ResponseEntity<ItemListResponse> getItems(@Parameter(hidden = true) Member member,
+      LocalDate searchDate);
 
   @Operation(summary = "선택한 물품 삭제", responses = {
       @ApiResponse(responseCode = "200", description = "물품 삭제 성공")})
