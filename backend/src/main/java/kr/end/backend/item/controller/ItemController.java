@@ -3,9 +3,9 @@ package kr.end.backend.item.controller;
 import jakarta.validation.Valid;
 import java.net.URI;
 import java.time.LocalDate;
-import java.util.List;
 import kr.end.backend.auth.config.AuthRequiredPrincipal;
 import kr.end.backend.item.dto.request.ItemRequest;
+import kr.end.backend.item.dto.response.ItemListResponse;
 import kr.end.backend.item.dto.response.ItemResponse;
 import kr.end.backend.item.service.ItemManageService;
 import kr.end.backend.member.domain.Member;
@@ -50,7 +50,7 @@ public class ItemController implements ItemSwaggerController {
   }
 
   @GetMapping
-  public ResponseEntity<List<ItemResponse>> getItems(@AuthRequiredPrincipal Member member,
+  public ResponseEntity<ItemListResponse> getItems(@AuthRequiredPrincipal Member member,
       @RequestParam(required = false) LocalDate searchDate) {
 
     if (searchDate == null) {
