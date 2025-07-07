@@ -7,6 +7,7 @@ import kr.end.backend.global.exception.JJUSTException;
 import kr.end.backend.item.domain.Transaction;
 import kr.end.backend.item.domain.TransactionItem;
 import kr.end.backend.item.dto.request.ItemRequest;
+import kr.end.backend.item.dto.response.ItemListResponse;
 import kr.end.backend.item.dto.response.ItemResponse;
 import kr.end.backend.item.repository.TransactionItemRepository;
 import kr.end.backend.item.repository.TransactionRepository;
@@ -85,16 +86,14 @@ public class ItemManageService {
     transactionRepository.saveAll(transactions);
   }
 
-  public List<ItemResponse> getItems(Member member, LocalDate searchDate) {
+  public ItemListResponse getItems(Member member, LocalDate searchDate) {
 
     int year = searchDate.getYear();
     int month = searchDate.getMonthValue();
 
     List<TransactionItem> items = itemRepository.findByMember(member, year, month);
 
-    return items.stream()
-        .map(item -> new ItemResponse(item))
-        .toList();
+    return new ItemListResponse(items);
   }
 
   public ItemResponse getItem(Member member, Long id) {
