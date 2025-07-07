@@ -37,6 +37,7 @@ public interface ItemSwaggerController {
   ResponseEntity<ItemListResponse> getItems(@Parameter(hidden = true) Member member,
       LocalDate searchDate);
 
+
   @Operation(summary = "선택한 물품 삭제", responses = {
       @ApiResponse(responseCode = "200", description = "물품 삭제 성공")})
   ResponseEntity<Void> deleteItem(@Parameter(hidden = true) Member member, Long id);
