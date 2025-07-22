@@ -71,11 +71,17 @@ public class ItemManageService {
 
     public ItemListResponse getItems(Member member, LocalDate searchDate) {
 
-        int year = searchDate.getYear();
-        int month = searchDate.getMonthValue();
+        log.info("searchDate: {}", searchDate);
+        String year = String.valueOf(searchDate.getYear());
+        String month = String.valueOf(searchDate.getMonthValue());
+        if (month.length() == 1) {
+            month = "0" + month; // 월이 한 자리 수인 경우 앞에 0을 추가
+        }
+
+        log.info("year: {}, month: {}", year, month);
 
         // 정렬은 구매일 기준 내림차순, 판매일 기준 오름차순
-        List<Item> items = itemRepository.findByMember(member, year, month)
+        List<Item> items = itemRepository.findByMember(member.getId(), year, month)
             .stream()
             .sorted(Comparator.comparing(Item::getPurchaseDate).reversed()
                 .thenComparing((Item p) -> p.getSale() != null ? p.getSale().getSaleDate() : null,
@@ -83,6 +89,8 @@ public class ItemManageService {
                 )
             )
             .toList();
+
+        log.info("items size: {}", items);
 
         return new ItemListResponse(items);
     }
