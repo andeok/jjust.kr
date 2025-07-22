@@ -12,10 +12,19 @@ public record ItemListResponse(
     public ItemListResponse(List<Item> items) {
         this(
             items.stream().mapToInt(Item::getPrice).sum(),
-            items.stream().mapToInt(item -> item.getSale().getPrice()).sum(),
-            items.stream().mapToInt(item -> item.getSale().getPrice()).sum() - items.stream()
-                .mapToInt(Item::getPrice).sum(),
+            items.stream()
+                .mapToInt(item -> item.getSale() != null && item.getSale().getPrice() != null
+                    ? item.getSale().getPrice()
+                    : 0)
+                .sum(),
+            items.stream()
+                .mapToInt(item -> item.getSale() != null && item.getSale().getPrice() != null
+                    ? item.getSale().getPrice()
+                    : 0)
+                .sum()
+                - items.stream().mapToInt(Item::getPrice).sum(),
             getItems(items));
+
     }
 
     private static List<ItemResponse> getItems(List<Item> item) {
