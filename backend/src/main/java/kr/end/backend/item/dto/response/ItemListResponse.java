@@ -1,9 +1,7 @@
 package kr.end.backend.item.dto.response;
 
 import java.util.List;
-import kr.end.backend.item.domain.Transaction;
-import kr.end.backend.item.domain.TransactionItem;
-import kr.end.backend.item.domain.TransactionType;
+import kr.end.backend.item.domain.Item;
 
 public record ItemListResponse(
     int purchasePrice,
@@ -11,28 +9,19 @@ public record ItemListResponse(
     int sumPrice,
     List<ItemResponse> items) {
 
-  public ItemListResponse(List<TransactionItem> transactionItems) {
-    this(
-        getPurchasePrice(transactionItems, TransactionType.PURCHASE),
-        getPurchasePrice(transactionItems, TransactionType.SALES),
-        getPurchasePrice(transactionItems, TransactionType.SALES) - getPurchasePrice(
-            transactionItems, TransactionType.PURCHASE),
-        getItems(transactionItems));
-  }
+    public ItemListResponse(List<Item> items) {
+        this(
+            items.stream().mapToInt(Item::getPrice).sum(),
+            items.stream().mapToInt(item -> item.getSale().getPrice()).sum(),
+            items.stream().mapToInt(item -> item.getSale().getPrice()).sum() - items.stream()
+                .mapToInt(Item::getPrice).sum(),
+            getItems(items));
+    }
 
-  private static List<ItemResponse> getItems(List<TransactionItem> item) {
-    return item.stream()
-        .map(ItemResponse::new)
-        .toList();
-  }
-
-  private static int getPurchasePrice(List<TransactionItem> transactions, TransactionType type) {
-
-    return transactions.stream()
-        .flatMap(item -> item.getTransactions().stream())
-        .filter(transaction -> transaction.getTransactionType().equals(type))
-        .mapToInt(Transaction::getPrice)
-        .sum();
-  }
+    private static List<ItemResponse> getItems(List<Item> item) {
+        return item.stream()
+            .map(ItemResponse::new)
+            .toList();
+    }
 
 }

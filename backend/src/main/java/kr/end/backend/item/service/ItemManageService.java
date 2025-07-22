@@ -1,16 +1,15 @@
 package kr.end.backend.item.service;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
-import kr.end.backend.global.exception.ErrorCode;
-import kr.end.backend.global.exception.JJUSTException;
-import kr.end.backend.item.domain.Transaction;
-import kr.end.backend.item.domain.TransactionItem;
+import kr.end.backend.item.domain.Item;
+import kr.end.backend.item.domain.Sale;
 import kr.end.backend.item.dto.request.ItemRequest;
 import kr.end.backend.item.dto.response.ItemListResponse;
 import kr.end.backend.item.dto.response.ItemResponse;
-import kr.end.backend.item.repository.TransactionItemRepository;
-import kr.end.backend.item.repository.TransactionRepository;
+import kr.end.backend.item.repository.ItemRepository;
+import kr.end.backend.item.repository.SaleRepository;
 import kr.end.backend.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,93 +22,82 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class ItemManageService {
 
-  private final ItemService itemService;
-  private final TransactionRepository transactionRepository;
-  private final TransactionItemRepository itemRepository;
+    private final ItemService itemService;
+    private final SaleRepository saleRepository;
+    private final ItemRepository itemRepository;
 
-  @Transactional
-  public Long createItem(Member member, ItemRequest request) {
+    @Transactional
+    public Long createItem(Member member, ItemRequest request) {
 
-    TransactionItem item = itemRepository.save(request.toEntity(member));
+        Item item = itemRepository.save(request.toEntity(member));
 
-    createTransaction(request, item);
+        if (request.saleRequest() != null) {
+            Sale sale = request.saleRequest().toEntity(item);
+            saleRepository.save(sale);
+        }
 
-    return item.getId();
-  }
-
-  private void createTransaction(ItemRequest request, TransactionItem item) {
-    List<Transaction> list = request.transactions().stream()
-        .map(transaction -> new Transaction(
-            item,
-            transaction.transactionType(),
-            transaction.quantity(),
-            transaction.price(),
-            transaction.transactionDate()
-        ))
-        .toList();
-
-    transactionRepository.saveAll(list);
-  }
-
-  @Transactional
-  public void updateItem(Member member, long id, ItemRequest request) {
-
-    TransactionItem transactionItem = itemService.readTransactionItem(member, id);
-
-    transactionItem.change(request);
-
-    updateProcessTransaction(request, transactionItem);
-
-  }
-
-  private void updateProcessTransaction(ItemRequest request, TransactionItem item) {
-    List<Transaction> transactions = item.getTransactions();
-    List<Transaction> updateTransactions = request.transactions().stream()
-        .map(transaction -> new Transaction(
-            item,
-            transaction.transactionType(),
-            transaction.quantity(),
-            transaction.price(),
-            transaction.transactionDate()
-        ))
-        .toList();
-
-    updateTransaction(transactions, updateTransactions);
-  }
-
-  private void updateTransaction(List<Transaction> transactions,
-      List<Transaction> updateTransactions) {
-
-    for (int i = 0; i < transactions.size(); i++) {
-      transactions.get(i).change(updateTransactions.get(i));
+        return item.getId();
     }
-    transactionRepository.saveAll(transactions);
-  }
 
-  public ItemListResponse getItems(Member member, LocalDate searchDate) {
+    @Transactional
+    public void updateItem(Member member, long id, ItemRequest request) {
 
-    int year = searchDate.getYear();
-    int month = searchDate.getMonthValue();
+        Item item = itemService.readItem(member, id);
 
-    List<TransactionItem> items = itemRepository.findByMember(member, year, month);
+        item.change(request);
 
-    return new ItemListResponse(items);
-  }
+        updateProcessTransaction(request, item);
 
-  public ItemResponse getItem(Member member, Long id) {
+    }
 
-    TransactionItem transactionItem = itemRepository.findByMemberAndId(member, id)
-        .orElseThrow(() -> new JJUSTException(ErrorCode.NOT_FOUND_ITEM));
+    private void updateProcessTransaction(ItemRequest request, Item item) {
+        Sale sale = itemService.readSale(item.getId());
 
-    return new ItemResponse(transactionItem);
-  }
+        if (sale != null) {
+            if (request.saleRequest() != null) {
+                Sale updateSale = request.saleRequest().toEntity(item);
+                sale.change(updateSale);
+            } else {
+                log.info("delete");
+                saleRepository.delete(sale);
+            }
+        } else {
+            if (request.saleRequest() != null) {
+                Sale newSale = request.saleRequest().toEntity(item);
+                saleRepository.save(newSale);
+            }
+        }
+    }
 
+    public ItemListResponse getItems(Member member, LocalDate searchDate) {
 
-  @Transactional
-  public void deleteItem(Member member, Long id) {
-    TransactionItem transactionItem = itemRepository.findByMemberAndId(member, id)
-        .orElseThrow(() -> new JJUSTException(ErrorCode.NOT_FOUND_ITEM));
+        int year = searchDate.getYear();
+        int month = searchDate.getMonthValue();
 
-    itemRepository.delete(transactionItem);
-  }
+        // 정렬은 구매일 기준 내림차순, 판매일 기준 오름차순
+        List<Item> items = itemRepository.findByMember(member, year, month)
+            .stream()
+            .sorted(Comparator.comparing(Item::getPurchaseDate).reversed()
+                .thenComparing((Item p) -> p.getSale() != null ? p.getSale().getSaleDate() : null,
+                    Comparator.nullsLast(Comparator.naturalOrder())
+                )
+            )
+            .toList();
+
+        return new ItemListResponse(items);
+    }
+
+    public ItemResponse getItem(Member member, Long id) {
+
+        Item item = itemService.readItem(member, id);
+
+        return new ItemResponse(item);
+    }
+
+    @Transactional
+    public void deleteItem(Member member, Long id) {
+
+        Item item = itemService.readItem(member, id);
+        itemRepository.delete(item);
+    }
 }
