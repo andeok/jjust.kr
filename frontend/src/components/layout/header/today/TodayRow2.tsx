@@ -1,16 +1,24 @@
-import {ChevronLeft, ChevronRight} from "lucide-react";
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from '@/components/ui/table';
 
 export default function TodayRow2() {
-  return (
-      <div className='flex items-center justify-between h-8 px-4'>
-        <button>
-          <ChevronLeft className='h-5 w-5 text-gray-700' />
-        </button>
-        <span className='text-base font-medium'>2025년 07월</span>
-        <button>
-          <ChevronRight className='h-5 w-5 text-gray-700' />
-        </button>
-      </div>
-
-  )
+    return (
+        <div className='flex items-center justify-between h-20 px-4'>
+            <Table className="table-fixed w-full">
+                <TableHeader>
+                    <TableRow>
+                        <TableHead className="w-1/3 text-center">구매</TableHead>
+                        <TableHead className="w-1/3 text-center">판매</TableHead>
+                        <TableHead className="w-1/3 text-center">합계</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    <TableRow>
+                        <TableCell className="w-1/3 text-center">50,000</TableCell>
+                        <TableCell className="w-1/3 text-center">30,000</TableCell>
+                        <TableCell className="w-1/3 text-center">20,000</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+        </div>
+    )
 }

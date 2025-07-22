@@ -28,59 +28,48 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ItemController implements ItemSwaggerController {
 
-  private final ItemManageService itemService;
+    private final ItemManageService itemService;
 
-  @PostMapping
-  public ResponseEntity<Void> createItem(@AuthRequiredPrincipal Member member,
-      @RequestBody @Valid ItemRequest request) {
+    @PostMapping
+    public ResponseEntity<Void> createItem(@AuthRequiredPrincipal Member member,
+        @RequestBody @Valid ItemRequest request) {
 
-    long itemId = itemService.createItem(member, request);
+        long itemId = itemService.createItem(member, request);
 
-    return ResponseEntity.created(URI.create("/items/" + itemId)).build();
-  }
-
-  @PutMapping("/{id}")
-  public ResponseEntity<Void> updateItem(@AuthRequiredPrincipal Member member,
-      @PathVariable long id,
-      @RequestBody @Valid ItemRequest request) {
-
-    itemService.updateItem(member, id, request);
-
-    return ResponseEntity.noContent().build();
-  }
-
-  @GetMapping
-  public ResponseEntity<ItemListResponse> getItems(@AuthRequiredPrincipal Member member,
-      @RequestParam(required = false) LocalDate searchDate) {
-
-    if (searchDate == null) {
-      searchDate = LocalDate.now();
+        return ResponseEntity.created(URI.create("/items/" + itemId)).build();
     }
 
-    return ResponseEntity.ok(itemService.getItems(member, searchDate));
-  }
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateItem(@AuthRequiredPrincipal Member member,
+        @PathVariable long id, @RequestBody @Valid ItemRequest request) {
 
-  @GetMapping("/{id}")
-  public ResponseEntity<ItemResponse> getItem(@AuthRequiredPrincipal Member member,
-      @PathVariable Long id) {
-    return ResponseEntity.ok(itemService.getItem(member, id));
-  }
+        itemService.updateItem(member, id, request);
 
+        return ResponseEntity.noContent().build();
+    }
 
-  @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteItem(@AuthRequiredPrincipal Member member,
-      @PathVariable Long id) {
+    @GetMapping
+    public ResponseEntity<ItemListResponse> getItems(@AuthRequiredPrincipal Member member,
+        @RequestParam(required = false) LocalDate searchDate) {
 
-    itemService.deleteItem(member, id);
-    return ResponseEntity.ok().build();
-  }
-//
-//  @PatchMapping("/{id}")
-//  public ResponseEntity<Void> updateItem(@AuthRequiredPrincipal Member member,
-//      @PathVariable Long id, @RequestBody @Valid ItemRequest request) {
-//
-//    itemService.updateItem(member, id, request);
-//    return ResponseEntity.ok().build();
-//  }
+        if (searchDate == null) {
+            searchDate = LocalDate.now();
+        }
 
+        return ResponseEntity.ok(itemService.getItems(member, searchDate));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ItemResponse> getItem(@AuthRequiredPrincipal Member member,
+        @PathVariable Long id) {
+        return ResponseEntity.ok(itemService.getItem(member, id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteItem(@AuthRequiredPrincipal Member member,
+        @PathVariable Long id) {
+
+        itemService.deleteItem(member, id);
+        return ResponseEntity.ok().build();
+    }
 }

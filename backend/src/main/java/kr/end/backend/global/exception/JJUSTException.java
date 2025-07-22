@@ -3,7 +3,6 @@ package kr.end.backend.global.exception;
 import lombok.Getter;
 
 @Getter
-
 public class JJUSTException extends RuntimeException {
 
     private final ErrorCode errorCode;

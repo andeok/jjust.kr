@@ -1,28 +1,25 @@
 package kr.end.backend.item.dto.response;
 
-import java.util.Comparator;
-import java.util.List;
-import kr.end.backend.item.domain.Transaction;
-import kr.end.backend.item.domain.TransactionItem;
-import kr.end.backend.item.domain.TransactionType;
+import java.time.LocalDate;
+import kr.end.backend.item.domain.Condition;
+import kr.end.backend.item.domain.Item;
 
 public record ItemResponse(
     long itemId,
     String itemName,
-    List<TransactionResponse> transactions
+    LocalDate purchaseDate,
+    Condition condition,
+    int price,
+    SaleResponse saleResponse
 ) {
 
-  public ItemResponse(TransactionItem item) {
-    this(item.getId(),
-        item.getItemName(),
-        getTransactions(item.getTransactions()));
-  }
-
-  private static List<TransactionResponse> getTransactions(List<Transaction> transactions) {
-
-    return transactions.stream()
-        .map(transaction -> new TransactionResponse(transaction))
-        .sorted(Comparator.comparing(TransactionResponse::transactionDate))
-        .toList();
-  }
+    public ItemResponse(Item item) {
+        this(item.getId(),
+            item.getItemName(),
+            item.getPurchaseDate(),
+            item.getCondition(),
+            item.getPrice(),
+            item.getSale() != null ? new SaleResponse(item.getSale()) : null
+        );
+    }
 }
