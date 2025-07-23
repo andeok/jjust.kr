@@ -17,5 +17,9 @@ export interface ItemListResponse {
   purchasePrice: number
   salesPrice: number
   sumPrice: number
-  items: Item[]
+  purchaseCount: number
+  salesCount: number
+  items: {
+    [date: string]: Item[];
+  }
 }

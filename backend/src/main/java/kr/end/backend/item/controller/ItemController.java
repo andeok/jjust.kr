@@ -36,6 +36,8 @@ public class ItemController implements ItemSwaggerController {
 
         long itemId = itemService.createItem(member, request);
 
+        log.info("ItemRequest: {}", request);
+
         return ResponseEntity.created(URI.create("/items/" + itemId)).build();
     }
 

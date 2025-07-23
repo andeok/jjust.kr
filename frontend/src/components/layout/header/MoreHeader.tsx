@@ -1,7 +1,7 @@
 import {Filter} from 'lucide-react'
 import {Button} from '@/components/ui/button.tsx'
 
-export default function StatsHeader() {
+export default function MoreHeader() {
   return (
       <header
           className='fixed top-0 left-1/2 -translate-x-1/2 z-20 w-full max-w-[430px] bg-white border-b'>
@@ -10,7 +10,7 @@ export default function StatsHeader() {
           <button>
             <Button className='h-6 w-6 text-gray-700'/>
           </button>
-          <span className='text-lg font-bold'>통계</span>
+          <span className='text-lg font-bold'>더보기</span>
           <button>
             <Filter className='h-6 w-6 text-gray-700'/>
           </button>

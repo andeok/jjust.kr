@@ -58,7 +58,6 @@ public class ItemManageService {
                 Sale updateSale = request.saleRequest().toEntity(item);
                 sale.change(updateSale);
             } else {
-                log.info("delete");
                 saleRepository.delete(sale);
             }
         } else {
@@ -70,15 +69,11 @@ public class ItemManageService {
     }
 
     public ItemListResponse getItems(Member member, LocalDate searchDate) {
-
-        log.info("searchDate: {}", searchDate);
         String year = String.valueOf(searchDate.getYear());
         String month = String.valueOf(searchDate.getMonthValue());
         if (month.length() == 1) {
             month = "0" + month; // 월이 한 자리 수인 경우 앞에 0을 추가
         }
-
-        log.info("year: {}, month: {}", year, month);
 
         // 정렬은 구매일 기준 내림차순, 판매일 기준 오름차순
         List<Item> items = itemRepository.findByMember(member.getId(), year, month)
@@ -89,8 +84,6 @@ public class ItemManageService {
                 )
             )
             .toList();
-
-        log.info("items size: {}", items);
 
         return new ItemListResponse(items);
     }
@@ -104,6 +97,7 @@ public class ItemManageService {
 
     @Transactional
     public void deleteItem(Member member, Long id) {
+        log.info("um...{}", id);
 
         Item item = itemService.readItem(member, id);
         itemRepository.delete(item);
