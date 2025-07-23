@@ -3,11 +3,20 @@ import Router from '@/routes'
 
 function App() {
   return (
-    <div className='w-full min-h-screen bg-gray-100 flex justify-center'>
-      <div className='relative w-full max-w-[430px] min-h-screen bg-white'>
-        <Router />
+      <div className='w-full min-h-screen bg-gray-100 flex justify-center'>
+        <div className="
+        relative
+        min-h-screen
+        w-full
+        max-w-[430px]
+        bg-white
+        flex flex-col
+        overflow-x-hidden
+        shadow
+      ">
+          <Router/>
+        </div>
       </div>
-    </div>
   )
 }
 

@@ -30,6 +30,13 @@ export function LoginForm({className, onSubmit, error, ...props}: LoginFormProps
           <CardContent>
             <form onSubmit={handleSubmit}>
               <div className='flex flex-col gap-6'>
+                {/* 에러 메시지 표시 영역 */}
+                {error && (
+                    <div
+                        className="text-red-500 bg-red-100 border border-red-300 rounded px-3 py-2 text-sm">
+                      {error}
+                    </div>
+                )}
                 <div className='grid gap-2'>
                   <Label htmlFor='email'>Email</Label>
                   <Input
