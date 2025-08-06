@@ -15,8 +15,8 @@ function formatDate(date: Date): string {
 
 const menu = [
   {label: formatDate(today), icon: <CalendarDays className='h-5 w-5'/>, key: 'today', path: '/'},
-  {label: '통계', icon: <BarChart3 className='h-5 w-5'/>, key: 'stats', path: '/stats'},
-  {label: '더보기', icon: <MoreHorizontal className='h-5 w-5'/>, key: 'more', path: '/more'},
+  {label: '통계(개발중)', icon: <BarChart3 className='h-5 w-5'/>, key: 'stats', path: '/stats'},
+  {label: '더보기(개발중)', icon: <MoreHorizontal className='h-5 w-5'/>, key: 'more', path: '/more'},
 ]
 
 export default function Footer({active = 'today'}: { active?: string }) {

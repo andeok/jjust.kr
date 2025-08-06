@@ -2,12 +2,13 @@ import type {Item} from '@/types/response/Item'
 
 interface ItemCardProps {
   item: Item
+  onClick?: (item: Item) => void;
 }
 
-export function ItemCard({item}: ItemCardProps) {
+export function ItemCard({item, onClick}: ItemCardProps) {
 
   return (
-      <div className='border rounded p-4 flex flex-col gap-2'>
+      <div className='border rounded p-4 flex flex-col gap-2' onClick={() => onClick?.(item)}>
         <div>
           <strong>{item.itemName}</strong> ({item.condition})
         </div>

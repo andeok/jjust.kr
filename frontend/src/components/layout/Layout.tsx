@@ -4,6 +4,7 @@ import {Outlet, useLocation} from 'react-router-dom'
 import StatsHeader from '@/components/layout/header/StatsHeader.tsx'
 import {useState} from 'react'
 import Login from "@/pages/login/Login.tsx";
+import MoreHeader from "@/components/layout/header/MoreHeader.tsx";
 
 export default function MainLayout() {
   const [headerData, setHeaderData] = useState({
@@ -22,9 +23,7 @@ export default function MainLayout() {
                                                        selectedDate={selectedDate}
                                                        setSelectedDate={setSelectedDate}/>
     if (location.pathname === '/stats') return <StatsHeader/>
-    if (location.pathname === '/more') return <TodayHeader {...headerData}
-                                                           selectedDate={selectedDate}
-                                                           setSelectedDate={setSelectedDate}/>
+    if (location.pathname === '/more') return <MoreHeader/>
     if (location.pathname === '/login') return <Login/>
     return null // 기본 헤더가 필요하면 여기에 넣으세요
   }
