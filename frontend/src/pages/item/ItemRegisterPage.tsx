@@ -12,8 +12,8 @@ import {
 import {Label} from "@/components/ui/label";
 import {format} from "date-fns";
 import {ChevronLeft} from "lucide-react";
-import {createItem, getItemById} from "@/api/item.ts";
-import type {ItemCondition} from "@/types/item";
+import {createItem, getItemById, updateItem} from "@/api/item.ts";
+import type {ItemCondition} from "@/types/request/ItemRequest.ts";
 
 export default function ItemRegisterPage() {
   const navigate = useNavigate();
