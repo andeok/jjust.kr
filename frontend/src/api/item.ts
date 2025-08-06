@@ -9,7 +9,7 @@ export async function getItems(searchDate: string) {
   return response.data
 }
 
-export async function createItem(request) {
+export async function createItem(request: any) {
   const response = await API.post('/v1/items', {
     condition: request.condition,
     itemName: request.itemName,
@@ -23,8 +23,8 @@ export async function createItem(request) {
   return response.data
 }
 
-export async function updateItem(request) {
-  const response = await API.put(`/v1/items/${request.itemId}`, {
+export async function updateItem(itemId: number, request: any) {
+  const response = await API.put(`/v1/items/${itemId}`, {
     condition: request.condition,
     itemName: request.itemName,
     purchaseDate: request.purchaseDate,
