@@ -7,7 +7,7 @@ import {API} from "@/api/API.ts";
 
 export async function checkLogin(): Promise<boolean> {
   try {
-    await API.get("/v1/members/me", {credentials: "include"});
+    await API.get("/v1/members/me");
     return true // 401이면 false
   } catch {
     return false;
