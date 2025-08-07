@@ -14,6 +14,7 @@ import {format} from "date-fns";
 import {ChevronLeft} from "lucide-react";
 import {createItem, deleteItem, getItemById, updateItem} from "@/api/item.ts";
 import type {ItemCondition} from "@/types/request/ItemRequest.ts";
+import * as React from "react";
 
 export default function ItemRegisterPage() {
     const navigate = useNavigate();
@@ -36,10 +37,12 @@ export default function ItemRegisterPage() {
             setPurchaseDate(item.purchaseDate);
             setCondition(item.condition);
             setPrice(item.price);
+            setInputValue(item.price.toLocaleString());
             if (item.saleResponse) {
                 setHasSale(true);
                 setSaleDate(item.saleResponse.saleDate);
                 setSalePrice(item.saleResponse.price);
+                setInputSalePrice(item.saleResponse.price.toLocaleString());
             } else {
                 setHasSale(false);
                 setSaleDate(format(new Date(), "yyyy-MM-dd"));
@@ -74,6 +77,33 @@ export default function ItemRegisterPage() {
     async function handleDelete() {
         await deleteItem(Number(itemId))
     }
+
+    const [inputValue, setInputValue] = useState(""); // 콤마가 포함된 문자열
+    const [inputSalePrice, setInputSalePrice] = useState(""); // 콤마가 포함된 문자열
+
+    const handleChange = (e: any) => {
+        // 입력값에서 숫자만 추출
+        const rawValue = e.target.value.replace(/,/g, "");
+        // 숫자가 아니면 빈값 처리
+        if (rawValue === "") {
+            setInputValue("");
+            setPrice('');
+            return;
+        }
+        // 숫자 변환
+        const numberValue = Number(rawValue);
+        if (isNaN(numberValue)) return; // 숫자 아닌 값은 무시
+
+        // 콤마 추가된 문자열 생성
+        const formattedValue = numberValue.toLocaleString();
+        if (e.target.id === 'price') {
+            setInputValue(formattedValue);
+            setPrice(numberValue);
+        } else if (e.target.id === 'salePrice') {
+            setInputSalePrice(formattedValue);
+            setSalePrice(numberValue);
+        }
+    };
 
     return (
         <div className="max-w-[430px] mx-auto px-4 py-8">
@@ -115,10 +145,10 @@ export default function ItemRegisterPage() {
                     <Label htmlFor="price">구매가</Label>
                     <Input
                         id="price"
-                        type="number"
+                        type="text"
                         min={0}
-                        value={price}
-                        onChange={e => setPrice(e.target.value === "" ? "" : Number(e.target.value))}
+                        value={inputValue}
+                        onChange={handleChange}
                         required
                     />
                 </div>
@@ -149,10 +179,10 @@ export default function ItemRegisterPage() {
                             <Label htmlFor="salePrice">판매가</Label>
                             <Input
                                 id="salePrice"
-                                type="number"
+                                type="text"
                                 min={0}
-                                value={salePrice}
-                                onChange={e => setSalePrice(e.target.value === "" ? "" : Number(e.target.value))}
+                                value={inputSalePrice}
+                                onChange={handleChange}
                             />
                         </div>
                     </div>
