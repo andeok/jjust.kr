@@ -97,6 +97,7 @@ public class ItemManageService {
 
     @Transactional
     public void deleteItem(Member member, Long id) {
+        log.info("um...{}", id);
 
         Item item = itemService.readItem(member, id);
         itemRepository.delete(item);

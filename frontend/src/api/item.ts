@@ -14,7 +14,7 @@ export async function createItem(request: any) {
     condition: request.condition,
     itemName: request.itemName,
     purchaseDate: request.purchaseDate,
-    price: request.price,
+    price: Number(request.price),
     saleRequest: request.saleRequest ? {
       saleDate: request.saleRequest.saleDate,
       price: request.saleRequest.price,
@@ -28,10 +28,10 @@ export async function updateItem(itemId: number, request: any) {
     condition: request.condition,
     itemName: request.itemName,
     purchaseDate: request.purchaseDate,
-    price: request.price,
+    price: Number(request.price),
     saleRequest: request.saleRequest ? {
       saleDate: request.saleRequest.saleDate,
-      price: request.saleRequest.price,
+      price: Number(request.saleRequest.price),
     } : null,
   })
   return response.data
@@ -41,4 +41,10 @@ export async function updateItem(itemId: number, request: any) {
 export async function getItemById(itemId: number) {
   const res = await API.get(`/v1/items/${itemId}`, {withCredentials: true});
   return res.data;
+}
+
+// 삭제
+export async function deleteItem(itemId: number) {
+    const res = await API.delete(`/v1/items/${itemId}`, {withCredentials: true});
+    return res.data;
 }
