@@ -42,3 +42,9 @@ export async function getItemById(itemId: number) {
   const res = await API.get(`/v1/items/${itemId}`, {withCredentials: true});
   return res.data;
 }
+
+// 삭제
+export async function deleteItem(itemId: number) {
+    const res = await API.delete(`/v1/items/${itemId}`, {withCredentials: true});
+    return res.data;
+}
