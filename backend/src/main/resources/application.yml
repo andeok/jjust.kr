@@ -11,3 +11,9 @@ jwt:
 #  accessToken-expiration-millis: 1_800_000
   accessToken-expiration-millis: 604_800_000
   refreshToken-expiration-millis: 604_800_000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
