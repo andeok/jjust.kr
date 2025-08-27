@@ -51,14 +51,9 @@ public class ItemController implements ItemSwaggerController {
     }
 
     @GetMapping
-    public ResponseEntity<ItemListResponse> getItems(@AuthRequiredPrincipal Member member,
-        @RequestParam(required = false) LocalDate searchDate) {
+    public ResponseEntity<ItemListResponse> getItems(@AuthRequiredPrincipal Member member) {
 
-        if (searchDate == null) {
-            searchDate = LocalDate.now();
-        }
-
-        return ResponseEntity.ok(itemService.getItems(member, searchDate));
+        return ResponseEntity.ok(itemService.getItems(member));
     }
 
     @GetMapping("/{id}")

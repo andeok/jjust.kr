@@ -34,8 +34,7 @@ public interface ItemSwaggerController {
     @Operation(summary = "내 물품 전체 조회", responses = {
         @ApiResponse(responseCode = "200", description = "물품 조회 성공",
             content = @Content(schema = @Schema(implementation = ItemListResponse[].class)))})
-    ResponseEntity<ItemListResponse> getItems(@Parameter(hidden = true) Member member,
-        LocalDate searchDate);
+    ResponseEntity<ItemListResponse> getItems(@Parameter(hidden = true) Member member);
 
 
     @Operation(summary = "선택한 물품 삭제", responses = {

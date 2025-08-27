@@ -1,11 +1,25 @@
 import {API} from '@/api/API.ts'
 
-export async function getItems(searchDate: string) {
-  const response = await API.get('/v1/items', {
-    params: {
-      searchDate,
-    },
-  })
+
+import type {ItemsApiResponse, SortType} from '../types';
+import { mockApiResponse } from '../data/mockData';
+
+interface FetchItemsParams {
+    startDate?: string;
+    endDate?: string;
+    sort?: SortType;
+    hideSold?: boolean;
+}
+
+export const fetchItems = async (params: FetchItemsParams): Promise<ItemsApiResponse> => {
+    console.log('Fetching items with params:', params);
+    await new Promise(resolve => setTimeout(resolve, 500));
+    return mockApiResponse;
+};
+
+
+export async function getItems() {
+  const response = await API.get('/v1/items')
   return response.data
 }
 
