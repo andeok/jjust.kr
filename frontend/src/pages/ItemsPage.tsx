@@ -23,7 +23,20 @@ export const ItemsPage: React.FC = () => {
     const [isFilterVisible, setIsFilterVisible] = useState(true);
     const lastScrollY = useRef(0);
 
-    // ... (스크롤 핸들러는 이전과 동일) ...
+    const handleScroll = () => {
+        const currentScrollY = window.scrollY;
+        if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+            setIsFilterVisible(false);
+        } else {
+            setIsFilterVisible(true);
+        }
+        lastScrollY.current = currentScrollY;
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     useEffect(() => {
         const loadItems = async () => {

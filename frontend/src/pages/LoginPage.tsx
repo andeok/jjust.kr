@@ -15,11 +15,7 @@ const loginPageStyles = {
     socialButton: { width: '50px', height: '50px', borderRadius: '50%', border: '1px solid #ddd', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer', backgroundColor: '#f5f5f5' },
 };
 
-interface LoginPageProps {
-    onLoginSuccess: () => void;
-}
-
-export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
+export const LoginPage: React.FC = () => {
     const navigate = useNavigate(); // 👈 [수정] navigate 훅 사용
 
     const request = {

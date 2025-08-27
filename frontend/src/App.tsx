@@ -1,8 +1,6 @@
-// src/App.tsx
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { MainLayout } from './pages/MainLayout';
-import { LoginPage } from './pages/LoginPage';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {MainLayout} from './pages/MainLayout';
+import {LoginPage} from './pages/LoginPage';
 // 👆 PrivateRoute import 제거
 
 const appStyles = {
@@ -25,10 +23,8 @@ export default function App() {
         <div style={appStyles.mobileFrame}>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/login" element={<LoginPage />} />
-
-                    {/* 👇 [수정] PrivateRoute를 제거하여 MainLayout이 항상 렌더링되도록 함 */}
-                    <Route path="/*" element={<MainLayout />} />
+                    <Route path="/login" element={<LoginPage/>}/>
+                    <Route path="/*" element={<MainLayout/>}/>
                 </Routes>
             </BrowserRouter>
         </div>
